@@ -5,7 +5,7 @@ import Labels from "./labels";
 import Rulers from "./rulers";
 import Bars from "./bars";
 
-import { getLongestLabel, calcTextSize } from "../helpers";
+import { getLongestLabel, calcTextSize } from "../helpers/index";
 
 export default function BarChart({ size, data, labels, colors }) {
   const [hoverInfo, setHoverInfo] = useState(null);

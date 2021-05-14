@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import LineChartContext from "./context";
 
-import { calcTextSize, getLongestLabel } from "../helpers";
+import { calcTextSize, getLongestLabel } from "../helpers/index";
 
 const Labels = () => {
   const { labels, xAxisSize, leftBorderDistance, size, fontStyle, data } =

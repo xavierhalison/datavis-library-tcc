@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import LineChartContext from "./context";
 import Marks from "./marks";
 
-import { calcTextSize } from "../helpers";
+import { calcTextSize } from "../helpers/index";
 
 const Rulers = () => {
   const {
