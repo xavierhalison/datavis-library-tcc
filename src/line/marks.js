@@ -8,7 +8,7 @@ const Marks = () => {
 
   let counter = 0;
 
-  for (let index = 0; index.toFixed(2) <= yAxisSize; index += yAxisSize / 10) {
+  for (let index = 0; index <= yAxisSize; index += yAxisSize / 10) {
     marks.push(
       <React.Fragment key={`mark_${counter}`}>
         <path d={`M-5 -${index} L5 -${index} Z`} stroke="black" />

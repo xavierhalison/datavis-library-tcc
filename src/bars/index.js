@@ -1,67 +1,62 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import LineChartContext from "./context";
 
 import Labels from "./labels";
 import Rulers from "./rulers";
 import Bars from "./bars";
+import HoverInfo from "./hoverInfo";
 
 import { getLongestLabel, calcTextSize } from "../helpers/index";
 
-export default function BarChart({ size, data, labels, colors }) {
-  const [hoverInfo, setHoverInfo] = useState(null);
-  const graphRef = useRef(null);
-
-  const highestValue = Math.max(...data);
-
+export default function BarChart({ size, data, labels, color }) {
   const longestLabel = getLongestLabel(labels);
-  const textSize = calcTextSize(longestLabel, "monospace", 10);
+  const highestValue = Math.max(...data);
   const dataNumberLength = highestValue.toString().length;
-
   const baseNumber = Math.pow(10, dataNumberLength - 1);
 
   const topLimit = Math.ceil(highestValue / baseNumber) * baseNumber;
 
-  const leftBorderDistance =
+  const paddingLeft =
     calcTextSize(topLimit.toString(), "monospace", 10).width + 20;
-  const topBorderDistance = size - textSize.width - 20;
+  const paddingTop = calcTextSize(longestLabel, "monospace", 10).width + 20;
 
-  const yAxisSize = topBorderDistance - size * 0.05;
-  const xAxisSize = size - leftBorderDistance - size * 0.05;
+  const yAxisSize = size - paddingTop - 20;
+  const xAxisSize = size - paddingLeft - 20;
 
   const fontStyle = {
     fontFamily: "monospace",
     fontSize: "10px",
   };
 
-  const context = {
-    labels,
-    xAxisSize,
+  const [chartData] = useState({
+    paddingLeft,
+    paddingTop,
+    topLimit,
     yAxisSize,
-    leftBorderDistance,
-    topBorderDistance,
+    xAxisSize,
+    data,
+    labels,
     size,
     fontStyle,
-    topLimit,
-    data,
-    colors,
-    hoverInfo,
-    setHoverInfo,
-    highestValue,
-    baseNumber,
-  };
+    color,
+  });
+
+  const [hoverInfo, setHoverInfo] = useState(null);
 
   return (
-    <LineChartContext.Provider value={context}>
+    <LineChartContext.Provider
+      value={{ ...chartData, hoverInfo, setHoverInfo }}
+    >
       <svg
         style={{ border: "1px solid black" }}
         width={size}
         height={size}
         viewBox={`0 0 ${size} ${size}`}
-        ref={graphRef}
       >
         <Rulers />
         <Labels />
         <Bars />
+        {hoverInfo && <HoverInfo />}
       </svg>
     </LineChartContext.Provider>
   );

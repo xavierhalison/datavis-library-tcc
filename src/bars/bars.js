@@ -3,18 +3,22 @@ import LineChartContext from "./context";
 
 const Bars = () => {
   const {
-    leftBorderDistance,
-    topBorderDistance,
+    paddingLeft,
+    paddingTop,
     xAxisSize,
     yAxisSize,
     topLimit,
     data,
+    size,
+    color,
+    setHoverInfo,
+    fontStyle,
   } = useContext(LineChartContext);
 
   const barWidth = xAxisSize / (data.length * 2 + 1);
 
   return (
-    <g transform={`translate(${leftBorderDistance}, ${topBorderDistance})`}>
+    <g transform={`translate(${paddingLeft}, ${size - paddingTop})`}>
       {data.map((bar, key) => {
         const currentX = (2 * key + 1) * barWidth;
 
@@ -26,7 +30,17 @@ const Bars = () => {
             height={currentY}
             x={currentX}
             y={-currentY}
-            fill="black"
+            fill={color || "black"}
+            key={`bar_${key}`}
+            onMouseOver={() =>
+              setHoverInfo({
+                x: currentX,
+                y: currentY,
+                fontStyle: fontStyle,
+                value: bar,
+              })
+            }
+            onMouseOut={() => setHoverInfo(null)}
           />
         );
       })}
