@@ -9,6 +9,9 @@
 # production
 /build
 /dist
+.cjs.js
+.esm.js
+.umd.js
 
 # misc
 .DS_Store
