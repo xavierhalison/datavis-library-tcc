@@ -14,7 +14,7 @@ const Labels = () => {
         return (
           <React.Fragment key={`${key}_label`}>
             <path
-              d={`M${currentX + 5} ${0} L${currentX + 5} -${paddingTop}`}
+              d={`M${currentX} ${0} L${currentX} -${paddingTop}`}
               id={`${key}_bar`}
             />
             <text style={fontStyle} x={paddingTop - 20} y="0" textAnchor="end">

@@ -10,9 +10,9 @@ export default function InfoHover() {
   return (
     <g transform={`translate(${paddingLeft}, ${size - paddingTop})`}>
       <rect
-        x={x - 20}
+        x={x - paddingLeft / 2}
         y={-y - 25}
-        width={40}
+        width={paddingLeft}
         height={20}
         fill={negative ? "black" : "white"}
         stroke={negative ? "white" : "black"}
@@ -32,7 +32,7 @@ export default function InfoHover() {
         x1={x}
         y1={-y}
         x2={x}
-        y2={0}
+        y2={10}
         stroke={negative ? "white" : "black"}
         strokeDasharray="2, 3"
       />

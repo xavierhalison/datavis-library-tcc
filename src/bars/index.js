@@ -14,28 +14,25 @@ export default function BarChart({
   labels,
   color,
   negative = true,
+  font = { fontFamily: "monospace", fontSize: "10px", fill: "black" },
 }) {
   const longestLabel = getLongestLabel(labels);
   const highestValue = Math.max(...data);
   const dataNumberLength = highestValue.toString().length;
-  const baseNumber = Math.pow(10, dataNumberLength - 1);
+  const baseNumber = Math.pow(10, dataNumberLength - 2);
 
   const topLimit = Math.ceil(highestValue / baseNumber) * baseNumber;
 
-  console.log(highestValue, baseNumber);
-
   const paddingLeft =
-    calcTextSize(topLimit.toString(), "monospace", 10).width + 20;
-  const paddingTop = calcTextSize(longestLabel, "monospace", 10).width + 20;
+    calcTextSize(topLimit.toString(), font.fontFamily, font.fontSize).width +
+    20;
+  const paddingTop =
+    calcTextSize(longestLabel, font.fontFamily, font.fontSize).width + 20;
 
   const yAxisSize = size - paddingTop - 20;
   const xAxisSize = size - paddingLeft - 20;
 
-  const fontStyle = {
-    fontFamily: "monospace",
-    fontSize: "10px",
-    fill: negative ? "white" : "black",
-  };
+  const fontStyle = { ...font, fill: negative ? "white" : "black" };
 
   const [chartData] = useState({
     paddingLeft,
