@@ -8,13 +8,21 @@ import HoverInfo from "./hoverInfo";
 
 import { getLongestLabel, calcTextSize } from "../helpers/index";
 
-export default function BarChart({ size, data, labels, color }) {
+export default function BarChart({
+  size,
+  data,
+  labels,
+  color,
+  negative = true,
+}) {
   const longestLabel = getLongestLabel(labels);
   const highestValue = Math.max(...data);
   const dataNumberLength = highestValue.toString().length;
   const baseNumber = Math.pow(10, dataNumberLength - 1);
 
   const topLimit = Math.ceil(highestValue / baseNumber) * baseNumber;
+
+  console.log(highestValue, baseNumber);
 
   const paddingLeft =
     calcTextSize(topLimit.toString(), "monospace", 10).width + 20;
@@ -26,6 +34,7 @@ export default function BarChart({ size, data, labels, color }) {
   const fontStyle = {
     fontFamily: "monospace",
     fontSize: "10px",
+    fill: negative ? "white" : "black",
   };
 
   const [chartData] = useState({
@@ -39,6 +48,7 @@ export default function BarChart({ size, data, labels, color }) {
     size,
     fontStyle,
     color,
+    negative,
   });
 
   const [hoverInfo, setHoverInfo] = useState(null);
@@ -47,12 +57,7 @@ export default function BarChart({ size, data, labels, color }) {
     <LineChartContext.Provider
       value={{ ...chartData, hoverInfo, setHoverInfo }}
     >
-      <svg
-        style={{ border: "1px solid black" }}
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-      >
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <Rulers />
         <Labels />
         <Bars />
