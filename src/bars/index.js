@@ -13,7 +13,7 @@ export default function BarChart({
   data,
   labels,
   color,
-  negative = true,
+  negative = false,
   font = { fontFamily: "monospace", fontSize: "10px", fill: "black" },
 }) {
   const longestLabel = getLongestLabel(labels);
