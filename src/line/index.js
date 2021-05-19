@@ -6,7 +6,16 @@ import Rulers from "./rulers";
 import LineGroup from "./lines";
 import InfoHover from "./hoverInfo";
 
-export default function LineChart({ size, datasets, labels, colors }) {
+import { getLongestLabel, calcTextSize } from "../helpers/index";
+
+export default function LineChart({
+  size,
+  datasets,
+  labels,
+  colors,
+  negative = false,
+  font = { fontFamily: "monospace", fontSize: "10px", fill: "black" },
+}) {
   const [hoverInfo, setHoverInfo] = useState(null);
 
   const getHighestValue = () => {
@@ -17,20 +26,27 @@ export default function LineChart({ size, datasets, labels, colors }) {
     return Math.max(...allSets);
   };
 
-  const leftBorderDistance = size * 0.1;
-  const topBorderDistance = size * 0.9;
-
   const dataNumberLength = getHighestValue().toString().length;
   const baseNumber = Math.pow(10, dataNumberLength - 1);
   const topLimit = Math.ceil(getHighestValue() / baseNumber) * baseNumber;
 
+  const leftBorderDistance =
+    calcTextSize(topLimit.toString(), font.fontFamily, font.fontSize).width +
+    20;
+
+  const longestLabel = getLongestLabel(labels);
+
+  console.log(calcTextSize(longestLabel, font.fontFamily, font.fontSize).width);
+
+  const topBorderDistance =
+    size -
+    calcTextSize(longestLabel, font.fontFamily, font.fontSize).height -
+    20;
+
   const yAxisSize = topBorderDistance - size * 0.05;
   const xAxisSize = size - leftBorderDistance - size * 0.05;
 
-  const fontStyle = {
-    fontFamily: "monospace",
-    fontSize: "10px",
-  };
+  const fontStyle = { ...font, fill: negative ? "white" : "black" };
 
   const context = {
     labels,
@@ -45,6 +61,7 @@ export default function LineChart({ size, datasets, labels, colors }) {
     colors,
     hoverInfo,
     setHoverInfo,
+    negative,
   };
 
   return (

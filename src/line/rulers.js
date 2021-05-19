@@ -10,12 +10,19 @@ const Rulers = () => {
     xAxisSize,
     yAxisSize,
     topLimit,
+    negative,
   } = useContext(LineChartContext);
 
   return (
     <g transform={`translate(${leftBorderDistance}, ${topBorderDistance})`}>
-      <path d={`M0 0 L0 -${yAxisSize} Z`} stroke="black" />
-      <path d={`M0 0 L${xAxisSize} 0 Z`} stroke="black" />
+      <path
+        d={`M0 0 L0 -${yAxisSize} Z`}
+        stroke={negative ? "white" : "black"}
+      />
+      <path
+        d={`M0 0 L${xAxisSize + 10} 0 Z`}
+        stroke={negative ? "white" : "black"}
+      />
       <Marks yAxisSize={yAxisSize} topLimit={topLimit} />
     </g>
   );
