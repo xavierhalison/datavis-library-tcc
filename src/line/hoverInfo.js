@@ -8,6 +8,7 @@ export default function InfoHover() {
     leftBorderDistance,
     topBorderDistance,
     negative,
+    longestLabelHeight,
   } = useContext(LineChartContext);
 
   const { x, y, value } = hoverInfo;
@@ -16,19 +17,19 @@ export default function InfoHover() {
     <g transform={`translate(${leftBorderDistance}, ${topBorderDistance})`}>
       <rect
         x={x - leftBorderDistance}
-        y={-y - 30}
+        y={-y - longestLabelHeight * 2}
         width={leftBorderDistance}
-        height={30}
+        height={longestLabelHeight * 1.5}
         fill={negative ? "black" : "white"}
         stroke={negative ? "white" : "black"}
       ></rect>
       <text
         style={fontStyle}
-        x={x - leftBorderDistance + 10}
-        y={-y - 10}
+        x={x - leftBorderDistance / 1.2}
+        y={-y - longestLabelHeight}
         textAnchor="start"
       >
-        {value}
+        {value.toLocaleString()}
       </text>
       <line
         x1={x}

@@ -11,21 +11,31 @@ const Labels = () => {
     topBorderDistance,
   } = useContext(LineChartContext);
 
-  const xBase = xAxisSize / (labels.length - 1);
+  const dotXBase = xAxisSize / (labels.length - 1);
 
   return (
-    <g transform={`translate(${leftBorderDistance}, ${topBorderDistance})`}>
-      {labels.map((label, key) => (
-        <text
-          style={fontStyle}
-          x={xBase * key}
-          y={size - topBorderDistance - 10}
-          textAnchor="middle"
-          key={`label_${key}`}
-        >
-          {label}
-        </text>
-      ))}
+    <g transform={`translate(${leftBorderDistance}, ${size})`}>
+      {labels.map((label, key) => {
+        const currentX = dotXBase * key;
+
+        return (
+          <>
+            <path
+              d={`M${currentX} ${0} L${currentX} -${size - topBorderDistance}`}
+              id={`${key}_dot`}
+            />
+            <text
+              style={fontStyle}
+              x={15}
+              y={0}
+              textAnchor="start"
+              key={`label_${key}`}
+            >
+              <textPath xlinkHref={`#${key}_dot`}>{label}</textPath>
+            </text>
+          </>
+        );
+      })}
     </g>
   );
 };

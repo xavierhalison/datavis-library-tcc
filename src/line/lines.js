@@ -36,12 +36,13 @@ const Line = ({ line, color }) => {
                 x2={getX(key + 1)}
                 y2={-getY(l2)}
                 stroke={color}
+                strokeWidth={3}
               />
             )}
             <circle
               cx={getX(key)}
               cy={-getY(l)}
-              r="5"
+              r="6"
               fill={color}
               onMouseOver={() =>
                 setHoverInfo({

@@ -31,17 +31,20 @@ export default function LineChart({
   const topLimit = Math.ceil(getHighestValue() / baseNumber) * baseNumber;
 
   const leftBorderDistance =
-    calcTextSize(topLimit.toString(), font.fontFamily, font.fontSize).width +
-    20;
+    calcTextSize(topLimit.toLocaleString(), font.fontFamily, font.fontSize)
+      .width + 20;
 
   const longestLabel = getLongestLabel(labels);
 
-  console.log(calcTextSize(longestLabel, font.fontFamily, font.fontSize).width);
+  const longestLabelBbox = calcTextSize(
+    longestLabel,
+    font.fontFamily,
+    font.fontSize
+  );
 
-  const topBorderDistance =
-    size -
-    calcTextSize(longestLabel, font.fontFamily, font.fontSize).height -
-    20;
+  const topBorderDistance = size - longestLabelBbox.width - 20;
+
+  const longestLabelHeight = longestLabelBbox.height;
 
   const yAxisSize = topBorderDistance - size * 0.05;
   const xAxisSize = size - leftBorderDistance - size * 0.05;
@@ -62,16 +65,12 @@ export default function LineChart({
     hoverInfo,
     setHoverInfo,
     negative,
+    longestLabelHeight,
   };
 
   return (
     <LineChartContext.Provider value={context}>
-      <svg
-        style={{ border: "1px solid black" }}
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-      >
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <Rulers />
         <Labels />
         <LineGroup />
