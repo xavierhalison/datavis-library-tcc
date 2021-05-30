@@ -43,7 +43,7 @@ const Bars = () => {
             }
             onMouseOut={() => setHoverInfo(null)}
             stroke={negative ? "white" : "black"}
-            stroke-width={1.5}
+            stroke-width={1}
           />
         );
       })}

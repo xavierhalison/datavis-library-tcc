@@ -36,7 +36,7 @@ const Line = ({ line, color }) => {
                 x2={getX(key + 1)}
                 y2={-getY(l2)}
                 stroke={color}
-                strokeWidth={3}
+                strokeWidth={1.5}
               />
             )}
             <circle

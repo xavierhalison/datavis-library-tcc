@@ -75,7 +75,7 @@ export default function PieChart({
             startAngle + currentSliceAngle
           )}
           stroke={negative ? "white" : "black"}
-          stroke-width="1.5"
+          stroke-width="0.5"
           fill={colors[key]}
         />
       );
