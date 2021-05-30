@@ -18,7 +18,7 @@ export default function InfoHover() {
         stroke={negative ? "white" : "black"}
       ></rect>
       <text style={fontStyle} x={x} y={-y - 10} textAnchor="middle">
-        {value}
+        {value.toLocaleString()}
       </text>
       <line
         x1={x}

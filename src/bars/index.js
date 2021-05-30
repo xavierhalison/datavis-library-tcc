@@ -24,8 +24,8 @@ export default function BarChart({
   const topLimit = Math.ceil(highestValue / baseNumber) * baseNumber;
 
   const paddingLeft =
-    calcTextSize(topLimit.toString(), font.fontFamily, font.fontSize).width +
-    20;
+    calcTextSize(topLimit.toLocaleString(), font.fontFamily, font.fontSize)
+      .width + 20;
   const paddingTop =
     calcTextSize(longestLabel, font.fontFamily, font.fontSize).width + 20;
 

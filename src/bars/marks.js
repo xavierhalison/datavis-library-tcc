@@ -17,7 +17,7 @@ const Marks = () => {
           stroke={negative ? "white" : "black"}
         />
         <text style={fontStyle} x="-10" y={-index + 3} textAnchor="end">
-          {(topLimit / 10) * counter}
+          {((topLimit / 10) * counter).toLocaleString()}
         </text>
       </React.Fragment>
     );

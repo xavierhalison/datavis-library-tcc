@@ -13,6 +13,7 @@ const Bars = () => {
     color,
     setHoverInfo,
     fontStyle,
+    negative,
   } = useContext(LineChartContext);
 
   const barWidth = xAxisSize / (data.length * 2 + 1);
@@ -41,6 +42,8 @@ const Bars = () => {
               })
             }
             onMouseOut={() => setHoverInfo(null)}
+            stroke={negative ? "white" : "black"}
+            stroke-width={1.5}
           />
         );
       })}
