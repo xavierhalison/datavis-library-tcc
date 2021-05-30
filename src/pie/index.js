@@ -11,10 +11,9 @@ export default function PieChart({
   font = { fontFamily: "monospace", fontSize: "10px", fill: "black" },
 }) {
   const longestLabel = getLongestLabel(labels);
-  const highestValue = Math.max(...data);
 
   const labelBox = calcTextSize(
-    `${longestLabel}: ${highestValue}`,
+    `${longestLabel}`,
     font.fontFamily,
     font.fontSize
   );
@@ -75,7 +74,8 @@ export default function PieChart({
             startAngle,
             startAngle + currentSliceAngle
           )}
-          stroke="none"
+          stroke={negative ? "white" : "black"}
+          stroke-width="1.5"
           fill={colors[key]}
         />
       );
@@ -103,32 +103,35 @@ export default function PieChart({
   const HoverInfo = () => {
     const x =
       hoverInfo.SVGPoint.x > size / 2
-        ? hoverInfo.SVGPoint.x - 100
+        ? hoverInfo.SVGPoint.x - labelBox.width
         : hoverInfo.SVGPoint.x;
 
     return (
       <>
         <rect
-          width={labelBox.width + 30}
-          height={labelBox.height + 10}
+          width={labelBox.width + 10}
+          height={labelBox.height * 2 + 5}
           x={x}
           y={hoverInfo.SVGPoint.y}
           fill={negative ? "black" : "white"}
         />
-        <rect
-          width={10}
-          height={labelBox.height}
-          x={x + 5}
-          y={hoverInfo.SVGPoint.y + 5}
-          fill={hoverInfo.currentSlice.color}
-        />
+
         <text
-          x={x + 20}
-          y={hoverInfo.SVGPoint.y + 15}
+          x={x + 5}
+          y={hoverInfo.SVGPoint.y + labelBox.height}
+          textAnchor="start"
+          style={fontStyle}
+          fontWeight={"bold"}
+        >
+          {hoverInfo.currentSlice.label}
+        </text>
+        <text
+          x={x + 5}
+          y={hoverInfo.SVGPoint.y + labelBox.height * 2}
           textAnchor="start"
           style={fontStyle}
         >
-          {hoverInfo.currentSlice.label}: {hoverInfo.currentSlice.value}
+          {hoverInfo.currentSlice.value.toLocaleString()}
         </text>
       </>
     );
