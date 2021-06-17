@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import LineChartContext from "./context";
-import { generateUID } from "../helpers";
+import { generateUID } from "../helpers/index.js";
 
 const Labels = () => {
   const {
