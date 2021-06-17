@@ -22,7 +22,7 @@ export default function BarChart({
   const baseNumber = Math.pow(10, dataNumberLength - 2);
 
   const topLimit = Math.ceil(highestValue / baseNumber) * baseNumber;
-
+  console.log(topLimit.toLocaleString());
   const paddingLeft =
     calcTextSize(topLimit.toLocaleString(), font.fontFamily, font.fontSize)
       .width + 20;

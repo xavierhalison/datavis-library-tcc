@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import LineChartContext from "./context";
+import { generateUID } from "../helpers";
 
 const Labels = () => {
   const {
@@ -13,6 +14,8 @@ const Labels = () => {
 
   const dotXBase = xAxisSize / (labels.length - 1);
 
+  const uid = generateUID();
+
   return (
     <g transform={`translate(${leftBorderDistance}, ${size})`}>
       {labels.map((label, key) => {
@@ -22,7 +25,7 @@ const Labels = () => {
           <>
             <path
               d={`M${currentX} ${0} L${currentX} -${size - topBorderDistance}`}
-              id={`${key}_dot`}
+              id={`${key}-${uid}_dot`}
             />
             <text
               style={fontStyle}
@@ -31,7 +34,7 @@ const Labels = () => {
               textAnchor="start"
               key={`label_${key}`}
             >
-              <textPath xlinkHref={`#${key}_dot`}>{label}</textPath>
+              <textPath xlinkHref={`#${key}-${uid}_dot`}>{label}</textPath>
             </text>
           </>
         );

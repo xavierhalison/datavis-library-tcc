@@ -43,7 +43,7 @@ export default function InfoHover() {
         x1={x}
         y1={-y}
         x2={x}
-        y2={0}
+        y2={10}
         stroke={negative ? "white" : "black"}
         strokeDasharray="2, 3"
       />
